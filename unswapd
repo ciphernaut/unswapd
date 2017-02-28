@@ -1,0 +1,24 @@
+# pseudo code for now
+
+# this could be a cron job run at interval x=10 min
+config_item_cpu_load_threshold: 50%
+config_item_mem_free_threshold: 30%
+
+if lockfile
+  check pid
+    remove lockfile if pid absent
+    else exit
+fi
+
+if cpu_idle > config_item_cpu_load_threshold
+  if mem_free > config_item_mem_free_threshold
+    get list of swapped processes
+    # https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/
+    # http://stackoverflow.com/questions/479953/how-to-find-out-which-processes-are-swapping-in-linux
+    for i in top 5 swapped processes
+      ptrace dump process > /dev/null
+      # http://unix.stackexchange.com/questions/6267/how-to-re-load-all-running-applications-from-swap-space-into-ram
+    rof
+  fi
+fi
+
